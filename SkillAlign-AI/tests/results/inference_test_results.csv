@@ -1,11 +1,41 @@
 test_id,description,category,expected_min,expected_max,actual_score,passed,inference_time_ms,confidence,recommendation,error,test_timestamp
-TC001,High match - Data Scientist role,high_match,0.7,1.0,1.0,True,2353.386163711548,High,Highly Recommended,,2026-04-22 14:36:26.681155
-TC002,Low match - Fresh grad vs Senior role,low_match,0.0,0.3,1.0,False,47.6994514465332,High,Highly Recommended,,2026-04-22 14:36:26.681155
-TC003,Medium-low match - Frontend vs Backend,medium_low_match,0.2,0.5,1.0,False,49.94082450866699,High,Highly Recommended,,2026-04-22 14:36:26.681155
-TC004,High match - Full-Stack role,high_match,0.6,0.9,0.9015,False,54.402828216552734,High,Highly Recommended,,2026-04-22 14:36:26.681155
-TC005,Low match - Marketing vs Data Analyst,low_match,0.1,0.4,1.0,False,48.13241958618164,High,Highly Recommended,,2026-04-22 14:36:26.681155
-TC006,High match - ML Engineer role,high_match,0.7,1.0,0.974,True,50.07338523864746,High,Highly Recommended,,2026-04-22 14:36:26.681155
-TC007,Medium match - Junior vs Mid-level,medium_match,0.4,0.7,1.0,False,51.37014389038086,High,Highly Recommended,,2026-04-22 14:36:26.681155
-TC008,Medium-high match - DevOps vs SRE,medium_high_match,0.5,0.8,1.0,False,48.61164093017578,High,Highly Recommended,,2026-04-22 14:36:26.681155
-TC009,Very low match - Designer vs Developer,very_low_match,0.0,0.2,0.9977,False,45.645713806152344,High,Highly Recommended,,2026-04-22 14:36:26.681155
-TC010,Medium match - BA vs Data Scientist,medium_match,0.3,0.6,1.0,False,48.798322677612305,High,Highly Recommended,,2026-04-22 14:36:26.681155
+TC001,High match - Data Scientist role,high_match,0.7,1.0,0.7902,True,2314.575433731079,High,Highly Recommended,,2026-04-25 17:56:21.743618
+TC002,Low match - Fresh grad vs Senior role,low_match,0.0,0.3,0.6952,False,49.718379974365234,Medium,Consider,,2026-04-25 17:56:21.743618
+TC003,Medium-low match - Frontend vs Backend,medium_low_match,0.2,0.5,0.7717,False,48.69699478149414,High,Highly Recommended,,2026-04-25 17:56:21.743618
+TC004,High match - Full-Stack role,high_match,0.6,0.9,0.7507,True,54.918766021728516,High,Highly Recommended,,2026-04-25 17:56:21.743618
+TC005,Low match - Marketing vs Data Analyst,low_match,0.1,0.4,0.8016,False,57.86013603210449,High,Highly Recommended,,2026-04-25 17:56:21.743618
+TC006,High match - ML Engineer role,high_match,0.7,1.0,0.6537,False,53.138017654418945,Medium,Consider,,2026-04-25 17:56:21.743618
+TC007,Medium match - Junior vs Mid-level,medium_match,0.4,0.7,0.7705,False,48.35844039916992,High,Highly Recommended,,2026-04-25 17:56:21.743618
+TC008,Medium-high match - DevOps vs SRE,medium_high_match,0.5,0.8,0.2689,False,48.52867126464844,Low,Not Recommended,,2026-04-25 17:56:21.743618
+TC009,Very low match - Designer vs Developer,very_low_match,0.0,0.2,0.7857,False,51.46145820617676,High,Highly Recommended,,2026-04-25 17:56:21.743618
+TC010,Medium match - BA vs Data Scientist,medium_match,0.3,0.6,0.4432,True,47.675132751464844,Medium,Consider,,2026-04-25 17:56:21.743618
+TC011,High match - Warehouse Management,high_match,0.8,1.0,0.471,False,49.207448959350586,Medium,Consider,,2026-04-25 17:56:21.743618
+TC012,Very low match - Courier vs Admin,very_low_match,0.0,0.2,0.7512,False,48.831939697265625,High,Highly Recommended,,2026-04-25 17:56:21.743618
+TC013,High match - Supply Chain Specialist,high_match,0.7,0.9,0.4788,False,48.58708381652832,Medium,Consider,,2026-04-25 17:56:21.743618
+TC014,High match - Professional Driver,high_match,0.7,1.0,0.6479,False,58.794260025024414,Medium,Consider,,2026-04-25 17:56:21.743618
+TC015,Medium match - Inventory vs Operations,medium_match,0.4,0.6,0.333,False,56.154489517211914,Low,Not Recommended,,2026-04-25 17:56:21.743618
+TC016,Medium-low match - International vs Domestic,medium_low_match,0.3,0.5,0.5234,False,51.47719383239746,Medium,Consider,,2026-04-25 17:56:21.743618
+TC017,High match - Equipment Operator,high_match,0.8,1.0,0.1042,False,48.952341079711914,Low,Not Recommended,,2026-04-25 17:56:21.743618
+TC018,High match - Logistics Analytics,high_match,0.7,0.9,0.2592,False,48.71320724487305,Low,Not Recommended,,2026-04-25 17:56:21.743618
+TC019,Medium match - Sales vs Management,medium_match,0.4,0.6,0.4857,True,52.30355262756348,Medium,Consider,,2026-04-25 17:56:21.743618
+TC020,High match - HSE Role,high_match,0.8,1.0,0.5812,False,48.85721206665039,Medium,Consider,,2026-04-25 17:56:21.743618
+TC021,Very low match - Entry level vs Manager,very_low_match,0.0,0.2,0.7584,False,51.285505294799805,High,Highly Recommended,,2026-04-25 17:56:21.743618
+TC022,Medium-high match - Operations,medium_high_match,0.6,0.8,0.7553,True,50.27270317077637,High,Highly Recommended,,2026-04-25 17:56:21.743618
+TC023,High match - Procurement,high_match,0.7,0.9,0.1968,False,48.37179183959961,Low,Not Recommended,,2026-04-25 17:56:21.743618
+TC024,Low match - Vehicle vs Facility Mech,low_match,0.2,0.4,0.6565,False,52.7341365814209,Medium,Consider,,2026-04-25 17:56:21.743618
+TC025,Medium-high match - Route Planning,medium_high_match,0.6,0.8,0.461,False,49.55911636352539,Medium,Consider,,2026-04-25 17:56:21.743618
+TC026,High match - Customs,high_match,0.8,1.0,0.8071,True,49.005985260009766,High,Highly Recommended,,2026-04-25 17:56:21.743618
+TC027,Low match - GA vs Warehouse,low_match,0.1,0.3,0.6519,False,49.12900924682617,Medium,Consider,,2026-04-25 17:56:21.743618
+TC028,Medium match - Warehouse Helper,medium_match,0.5,0.7,0.5896,True,50.84705352783203,Medium,Consider,,2026-04-25 17:56:21.743618
+TC029,High match - Maritime Logistics,high_match,0.7,0.9,0.7579,True,51.17177963256836,High,Highly Recommended,,2026-04-25 17:56:21.743618
+TC030,High match - BizDev,high_match,0.8,1.0,0.7581,False,48.140525817871094,High,Highly Recommended,,2026-04-25 17:56:21.743618
+TC031,High match - Security,high_match,0.7,0.9,0.764,True,52.06561088562012,High,Highly Recommended,,2026-04-25 17:56:21.743618
+TC032,Medium-high match - Checking/Tally,medium_high_match,0.6,0.8,0.3219,False,49.86000061035156,Low,Not Recommended,,2026-04-25 17:56:21.743618
+TC033,Medium-high match - Finance,medium_high_match,0.6,0.8,0.4126,False,49.41868782043457,Medium,Consider,,2026-04-25 17:56:21.743618
+TC034,Medium-low match - Technical vs Admin,medium_low_match,0.3,0.5,0.6508,False,50.61936378479004,Medium,Consider,,2026-04-25 17:56:21.743618
+TC035,Low match - Consultant vs IT Support,low_match,0.1,0.3,0.4844,False,51.7880916595459,Medium,Consider,,2026-04-25 17:56:21.743618
+TC036,High match - Forwarding,high_match,0.8,1.0,0.6918,False,49.67641830444336,Medium,Consider,,2026-04-25 17:56:21.743618
+TC037,High match - Customer Service,high_match,0.7,0.9,0.4825,False,50.34661293029785,Medium,Consider,,2026-04-25 17:56:21.743618
+TC038,High match - Senior Leadership,high_match,0.7,0.9,0.459,False,48.95377159118652,Medium,Consider,,2026-04-25 17:56:21.743618
+TC039,Medium match - Physical Labor,medium_match,0.4,0.6,0.5011,True,50.20284652709961,Medium,Consider,,2026-04-25 17:56:21.743618
+TC040,Medium-low match - Risk vs Legal,medium_low_match,0.3,0.5,0.6576,False,49.46422576904297,Medium,Consider,,2026-04-25 17:56:21.743618
