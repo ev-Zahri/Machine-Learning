@@ -96,9 +96,39 @@ class PredictionResponse(BaseModel):
     )
 
 
+class BatchPredictionItem(BaseModel):
+    """Satu item hasil batch prediction, sudah diurutkan berdasarkan skor."""
+    rank: int = Field(
+        ...,
+        description="Peringkat job (1 = paling cocok)"
+    )
+    job_index: int = Field(
+        ...,
+        description="Posisi job dalam array input (0-based), untuk tracing di Backend"
+    )
+    matching_score: float = Field(
+        ...,
+        ge=0.0,
+        le=1.0,
+        description="Skor kecocokan CV-Job (0.0-1.0)"
+    )
+    confidence: str = Field(
+        ...,
+        description="Confidence level: High / Medium / Low"
+    )
+    recommendation: str = Field(
+        ...,
+        description="Recommendation text"
+    )
+    inference_time_ms: float = Field(
+        ...,
+        description="Waktu inferensi (ms)"
+    )
+
+
 class BatchPredictionResponse(BaseModel):
-    """Response body untuk batch prediction."""
-    results: List[PredictionResponse]
+    """Response body untuk batch prediction, diurutkan dari skor tertinggi."""
+    results: List[BatchPredictionItem]
     total_items: int
     total_time_ms: float
 
@@ -186,26 +216,39 @@ async def predict_batch(request: BatchPredictionRequest):
 
     try:
         cv_texts = [request.cv_text] * len(request.job_descriptions)
-        results = predictor.predict_batch(
+        raw_results = predictor.predict_batch(
             cv_texts=cv_texts,
             job_descriptions=request.job_descriptions
         )
 
-        total_time = sum(r.inference_time_ms for r in results)
+        total_time = sum(r.inference_time_ms for r in raw_results)
 
-        response_results = [
-            PredictionResponse(
-                matching_score=r.matching_score,
-                confidence=r.confidence,
-                recommendation=r.recommendation,
-                inference_time_ms=r.inference_time_ms
+        # Gabungkan hasil dengan job_index asli, lalu urutkan berdasarkan skor
+        indexed = [
+            {
+                "job_index": i,
+                "result": r
+            }
+            for i, r in enumerate(raw_results)
+        ]
+        indexed.sort(key=lambda x: x["result"].matching_score, reverse=True)
+
+        # Buat response dengan rank yang jelas
+        ranked_results = [
+            BatchPredictionItem(
+                rank=rank + 1,                          # 1-based rank
+                job_index=item["job_index"],            # posisi di input array
+                matching_score=item["result"].matching_score,
+                confidence=item["result"].confidence,
+                recommendation=item["result"].recommendation,
+                inference_time_ms=item["result"].inference_time_ms
             )
-            for r in results
+            for rank, item in enumerate(indexed)
         ]
 
         return BatchPredictionResponse(
-            results=response_results,
-            total_items=len(results),
+            results=ranked_results,
+            total_items=len(ranked_results),
             total_time_ms=round(total_time, 2)
         )
 
