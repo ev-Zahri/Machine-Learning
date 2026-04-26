@@ -292,7 +292,8 @@ Hasil evaluasi tersimpan di: `tests/results/inference_test_results.csv`
 | GET | `/health` | Health check + model status | Load balancer |
 | POST | `/predict` | Single CV vs 1 Job | Testing & demo |
 | POST | `/api/v1/predict` | Single CV vs 1 Job (versioned) | Testing & demo |
-| POST | `/api/v1/predict/batch` | 1 CV vs ≤50 Jobs | **Integrasi Backend** |
+| POST | `/api/v1/predict/batch` | 1 CV vs ≤50 Jobs | **Integrasi Backend (ranking)** |
+| POST | `/api/v1/skill-gap` | Analisis skill gap CV vs Job | **Rekomendasi skill** |
 
 ### Request Schema
 
@@ -361,6 +362,55 @@ const ranked = aiResponse.data.results.map(item => ({
 }));
 // ranked[0] = job terbaik untuk CV ini
 ```
+
+---
+
+### Skill Gap (`/api/v1/skill-gap`)
+
+**Request:**
+```json
+{
+  "cv_text": "string (min 50 char)",
+  "job_description": "string (min 30 char)"
+}
+```
+
+**Response:**
+```json
+{
+  "skill_gap_score": 0.20,
+  "skill_coverage_percent": "20%",
+  "top_priority_skill": "tensorflow",
+  "present_skills": [
+    { "skill": "python", "weight": 0.45, "priority": 0 }
+  ],
+  "missing_skills": [
+    { "skill": "tensorflow", "weight": 0.38, "priority": 1 },
+    { "skill": "mlops",      "weight": 0.31, "priority": 2 },
+    { "skill": "docker",     "weight": 0.28, "priority": 3 }
+  ],
+  "recommendation_summary": "Kesesuaian skill: 20% (perlu peningkatan). Prioritaskan mempelajari: tensorflow, mlops, docker.",
+  "analysis_time_ms": 12.4
+}
+```
+
+| Field | Keterangan |
+|---|---|
+| `skill_gap_score` | 0.0–1.0, skor kesesuaian skill |
+| `skill_coverage_percent` | Persentase skill requirement yang sudah terpenuhi |
+| `top_priority_skill` | Skill paling penting untuk dipelajari duluan |
+| `present_skills` | Skill yang sudah ada di CV sesuai requirement |
+| `missing_skills` | Skill yang kurang, diurutkan berdasarkan prioritas |
+| `recommendation_summary` | Ringkasan rekomendasi natural language |
+
+**Test curl:**
+```bash
+curl -X POST http://localhost:8000/api/v1/skill-gap \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"cv_text\": \"Data Analyst with 3 years experience. Skilled in SQL, Excel, and PowerBI. Basic Python knowledge for data cleaning and visualization.\",
+    \"job_description\": \"Data Scientist position requiring Python, machine learning, TensorFlow, statistical modeling, and A/B testing experience.\"
+  }"
 
 ---
 
