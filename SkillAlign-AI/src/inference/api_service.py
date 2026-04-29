@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/v1", tags=["prediction"])
 
 # Singleton analyzer (stateless, aman dipakai bersamaan)
-_skill_gap_analyzer = SkillGapAnalyzer(top_n_job=15)
+_skill_gap_analyzer = SkillGapAnalyzer()
 
 
 # ==========================================
@@ -303,10 +303,11 @@ class SkillGapRequest(BaseModel):
 
 
 class SkillItemResponse(BaseModel):
-    """Satu skill beserta bobot kepentingannya."""
-    skill: str = Field(..., description="Nama skill / keyword")
-    weight: float = Field(..., description="Bobot TF-IDF (semakin tinggi = semakin penting)")
-    priority: int = Field(0, description="Urutan prioritas untuk missing skills (1 = tertinggi)")
+    """Satu skill yang terdeteksi oleh SkillNer dari EMSI database."""
+    skill: str = Field(..., description="Nama skill (dari EMSI skill database)")
+    skill_id: str = Field("", description="EMSI canonical skill ID")
+    match_score: float = Field(0.0, description="Confidence SkillNer (1.0=full match, <1=ngram match)")
+    priority: int = Field(0, description="Urutan prioritas untuk missing skills (1=paling penting)")
 
 
 class SkillGapResponse(BaseModel):
@@ -375,11 +376,21 @@ async def analyze_skill_gap(request: SkillGapRequest):
             skill_coverage_percent=result.skill_coverage_percent,
             top_priority_skill=result.top_priority_skill,
             present_skills=[
-                SkillItemResponse(skill=s.skill, weight=s.weight, priority=s.priority)
+                SkillItemResponse(
+                    skill=s.skill,
+                    skill_id=s.skill_id,
+                    match_score=s.match_score,
+                    priority=s.priority
+                )
                 for s in result.present_skills
             ],
             missing_skills=[
-                SkillItemResponse(skill=s.skill, weight=s.weight, priority=s.priority)
+                SkillItemResponse(
+                    skill=s.skill,
+                    skill_id=s.skill_id,
+                    match_score=s.match_score,
+                    priority=s.priority
+                )
                 for s in result.missing_skills
             ],
             recommendation_summary=result.recommendation_summary,
