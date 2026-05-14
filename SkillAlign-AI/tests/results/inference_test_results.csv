@@ -1,25 +1,25 @@
 test_id,description,category,expected_min,expected_max,actual_score,passed,inference_time_ms,confidence,recommendation,error,test_timestamp
-TC001,High match - Data Scientist role,high_match,0.7,1.0,0.7902,True,3495.468854904175,High,Highly Recommended,,2026-04-25 21:03:35.669450
-TC002,Low match - Fresh grad vs Senior role,low_match,0.0,0.3,0.6952,False,105.48114776611328,Medium,Consider,,2026-04-25 21:03:35.669450
-TC003,Medium-low match - Frontend vs Backend,medium_low_match,0.2,0.5,0.7717,False,73.74191284179688,High,Highly Recommended,,2026-04-25 21:03:35.669450
-TC004,High match - Full-Stack role,high_match,0.6,0.9,0.7507,True,70.93191146850586,High,Highly Recommended,,2026-04-25 21:03:35.669450
-TC005,Low match - Marketing vs Data Analyst,low_match,0.1,0.4,0.8016,False,73.3180046081543,High,Highly Recommended,,2026-04-25 21:03:35.669450
-TC006,High match - ML Engineer role,high_match,0.7,1.0,0.6537,False,69.84233856201172,Medium,Consider,,2026-04-25 21:03:35.669450
-TC007,Medium match - Junior vs Mid-level,medium_match,0.4,0.7,0.7705,False,67.48104095458984,High,Highly Recommended,,2026-04-25 21:03:35.669450
-TC008,Medium-high match - DevOps vs SRE,medium_high_match,0.5,0.8,0.2689,False,68.21703910827637,Low,Not Recommended,,2026-04-25 21:03:35.669450
-TC009,Very low match - Designer vs Developer,very_low_match,0.0,0.2,0.7857,False,69.51642036437988,High,Highly Recommended,,2026-04-25 21:03:35.669450
-TC010,Medium match - BA vs Data Scientist,medium_match,0.3,0.6,0.4432,True,69.02551651000977,Medium,Consider,,2026-04-25 21:03:35.669450
-TC011,High match - Strategic Sales role in IT industry,high_match,0.85,1.0,0.5041,False,67.7037239074707,Medium,Consider,,2026-04-25 21:03:35.669450
-TC012,High match - Specialized Healthcare Provider,high_match,0.8,0.95,0.9194,True,70.89877128601074,High,Highly Recommended,,2026-04-25 21:03:35.669450
-TC013,Low match - Massive seniority and tech stack gap in IT,low_match,0.15,0.35,0.7846,False,74.54156875610352,High,Highly Recommended,,2026-04-25 21:03:35.669450
-TC014,Mid-High match - Strong Finance/Auditing alignment,mid_match,0.75,0.88,0.4475,False,79.73670959472656,Medium,Consider,,2026-04-25 21:03:35.669450
-TC015,No match - Different domain within Engineering/Construction,no_match,0.1,0.25,0.5082,False,68.88914108276367,Medium,Consider,,2026-04-25 21:03:35.669450
-TC016,High match - Direct Staffing & Recruiting industry alignment,high_match,0.8,0.92,0.7455,False,59.8752498626709,High,Highly Recommended,,2026-04-25 21:03:35.669450
-TC017,High match - Manufacturing and Management focus,high_match,0.78,0.9,0.5747,False,59.81874465942383,Medium,Consider,,2026-04-25 21:03:35.669450
-TC009,High match - Direct Construction and Project Management alignment,high_match,0.85,0.98,0.726,False,55.30071258544922,High,Highly Recommended,,2026-04-25 21:03:35.669450
-TC010,Mid match - Correct industry but lack of regional management experience,mid_match,0.5,0.65,0.8027,False,55.71126937866211,High,Highly Recommended,,2026-04-25 21:03:35.669450
-TC011,High match - IT Services and Consulting specialist,high_match,0.88,1.0,0.7914,False,57.411909103393555,High,Highly Recommended,,2026-04-25 21:03:35.669450
-TC012,Low-Mid match - Same industry (Insurance) but different functional role,mid_match,0.4,0.55,0.3847,False,57.13844299316406,Low,Not Recommended,,2026-04-25 21:03:35.669450
-TC013,High match - Engineering and Manufacturing alignment,high_match,0.82,0.95,0.7828,False,58.65120887756348,High,Highly Recommended,,2026-04-25 21:03:35.669450
-TC014,Low match - Same industry (Banking) but technical vs operational role,low_match,0.3,0.45,0.3446,True,61.537742614746094,Low,Not Recommended,,2026-04-25 21:03:35.669450
-TC015,Mid match - Strong skill fit but lacks the required seniority,mid_match,0.55,0.7,0.7089,False,58.345794677734375,High,Highly Recommended,,2026-04-25 21:03:35.669450
+TC001,High match - Data Scientist role,high_match,0.7,1.0,0.7902,True,2446.547508239746,High,Highly Recommended,,2026-05-03 13:57:58.055821
+TC002,Low match - Fresh grad vs Senior role,low_match,0.0,0.3,0.6952,False,52.15144157409668,Medium,Consider,,2026-05-03 13:57:58.055821
+TC003,Medium-low match - Frontend vs Backend,medium_low_match,0.2,0.5,0.7717,False,48.604726791381836,High,Highly Recommended,,2026-05-03 13:57:58.055821
+TC004,High match - Full-Stack role,high_match,0.6,0.9,0.7507,True,53.774356842041016,High,Highly Recommended,,2026-05-03 13:57:58.055821
+TC005,Low match - Marketing vs Data Analyst,low_match,0.1,0.4,0.8016,False,48.81644248962402,High,Highly Recommended,,2026-05-03 13:57:58.055821
+TC006,High match - ML Engineer role,high_match,0.7,1.0,0.6537,False,48.8741397857666,Medium,Consider,,2026-05-03 13:57:58.055821
+TC007,Medium match - Junior vs Mid-level,medium_match,0.4,0.7,0.7705,False,52.39748954772949,High,Highly Recommended,,2026-05-03 13:57:58.055821
+TC008,Medium-high match - DevOps vs SRE,medium_high_match,0.5,0.8,0.2689,False,54.502248764038086,Low,Not Recommended,,2026-05-03 13:57:58.055821
+TC009,Very low match - Designer vs Developer,very_low_match,0.0,0.2,0.7857,False,47.539710998535156,High,Highly Recommended,,2026-05-03 13:57:58.055821
+TC010,Medium match - BA vs Data Scientist,medium_match,0.3,0.6,0.4432,True,61.34319305419922,Medium,Consider,,2026-05-03 13:57:58.055821
+TC011,High match - Strategic Sales role in IT industry,high_match,0.85,1.0,0.5041,False,56.20455741882324,Medium,Consider,,2026-05-03 13:57:58.055821
+TC012,High match - Specialized Healthcare Provider,high_match,0.8,0.95,0.9194,True,52.93846130371094,High,Highly Recommended,,2026-05-03 13:57:58.055821
+TC013,Low match - Massive seniority and tech stack gap in IT,low_match,0.15,0.35,0.7846,False,52.338600158691406,High,Highly Recommended,,2026-05-03 13:57:58.055821
+TC014,Mid-High match - Strong Finance/Auditing alignment,mid_match,0.75,0.88,0.4475,False,53.195953369140625,Medium,Consider,,2026-05-03 13:57:58.055821
+TC015,No match - Different domain within Engineering/Construction,no_match,0.1,0.25,0.5082,False,49.750566482543945,Medium,Consider,,2026-05-03 13:57:58.055821
+TC016,High match - Direct Staffing & Recruiting industry alignment,high_match,0.8,0.92,0.7455,False,49.678802490234375,High,Highly Recommended,,2026-05-03 13:57:58.055821
+TC017,High match - Manufacturing and Management focus,high_match,0.78,0.9,0.5747,False,53.22718620300293,Medium,Consider,,2026-05-03 13:57:58.055821
+TC009,High match - Direct Construction and Project Management alignment,high_match,0.85,0.98,0.726,False,52.00767517089844,High,Highly Recommended,,2026-05-03 13:57:58.055821
+TC010,Mid match - Correct industry but lack of regional management experience,mid_match,0.5,0.65,0.8027,False,51.680803298950195,High,Highly Recommended,,2026-05-03 13:57:58.055821
+TC011,High match - IT Services and Consulting specialist,high_match,0.88,1.0,0.7914,False,50.811052322387695,High,Highly Recommended,,2026-05-03 13:57:58.055821
+TC012,Low-Mid match - Same industry (Insurance) but different functional role,mid_match,0.4,0.55,0.3847,False,49.56412315368652,Low,Not Recommended,,2026-05-03 13:57:58.055821
+TC013,High match - Engineering and Manufacturing alignment,high_match,0.82,0.95,0.7828,False,52.387237548828125,High,Highly Recommended,,2026-05-03 13:57:58.055821
+TC014,Low match - Same industry (Banking) but technical vs operational role,low_match,0.3,0.45,0.3446,True,50.765037536621094,Low,Not Recommended,,2026-05-03 13:57:58.055821
+TC015,Mid match - Strong skill fit but lacks the required seniority,mid_match,0.55,0.7,0.7089,False,51.73993110656738,High,Highly Recommended,,2026-05-03 13:57:58.055821

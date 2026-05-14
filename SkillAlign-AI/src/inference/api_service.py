@@ -403,3 +403,118 @@ async def analyze_skill_gap(request: SkillGapRequest):
             status_code=500,
             detail=f"Skill gap analysis failed: {str(e)}"
         )
+
+
+# ==========================================
+# CV Skill Extraction Endpoint
+# ==========================================
+
+class CvSkillExtractionRequest(BaseModel):
+    """Request body untuk ekstraksi skill dari CV."""
+    cv_text: str = Field(
+        ...,
+        min_length=50,
+        max_length=10000,
+        description="Teks CV pengguna (raw text dari PDF)"
+    )
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [{
+                "cv_text": (
+                    "Software Engineer with 5 years experience in Python, Django, "
+                    "React.js, PostgreSQL, Docker, and AWS cloud infrastructure. "
+                    "Strong background in CI/CD pipelines and microservices architecture."
+                )
+            }]
+        }
+    }
+
+
+class ExtractedSkillItem(BaseModel):
+    """Satu skill yang terdeteksi SkillNer dari teks CV."""
+    skill: str    = Field(..., description="Nama skill (lowercase, dari EMSI database)")
+    skill_id: str = Field(..., description="EMSI canonical skill ID")
+    confidence: float = Field(..., description="Confidence score (1.0=full match, <1=ngram)")
+
+
+class CvSkillExtractionResponse(BaseModel):
+    """Response ekstraksi skill dari CV."""
+    skills: List[ExtractedSkillItem] = Field(
+        ..., description="Daftar skill yang terdeteksi di CV, diurutkan by confidence"
+    )
+    skill_names: List[str] = Field(
+        ..., description="Nama skill saja (tanpa metadata), berguna untuk DB keyword search"
+    )
+    total_skills: int = Field(..., description="Jumlah skill yang terdeteksi")
+    extraction_time_ms: float = Field(..., description="Waktu ekstraksi (ms)")
+
+
+@router.post(
+    "/extract-cv-skills",
+    response_model=CvSkillExtractionResponse,
+    summary="Extract Skills from CV Text",
+    description=(
+        "Ekstrak daftar skill dari teks CV menggunakan SkillNer (EMSI skill database). "
+        "Digunakan oleh backend untuk candidate generation sebelum batch prediction — "
+        "menghasilkan keyword yang jauh lebih akurat daripada frequency-based extraction. "
+        "Tidak membutuhkan job description."
+    )
+)
+async def extract_cv_skills(request: CvSkillExtractionRequest):
+    """
+    Ekstrak skills dari CV text menggunakan SkillNer.
+
+    Endpoint ini digunakan oleh backend Express.js sebagai Stage 1 dari
+    2-stage recommendation pipeline:
+      1. extract-cv-skills → dapatkan skill names dari CV
+      2. Query DB dengan skill names sebagai keyword filter
+      3. predict/batch → ranking job hasil filter
+
+    Returns skills yang terdeteksi SkillNer (EMSI database, 31k+ skills),
+    diurutkan dari confidence tertinggi.
+    """
+    try:
+        start = time.time()
+
+        # Gunakan _extract_skills internal dari SkillGapAnalyzer
+        # Return: Dict[skill_id, (skill_name, confidence)]
+        raw_skills = _skill_gap_analyzer._extract_skills(request.cv_text)
+
+        # Sort by confidence descending
+        sorted_skills = sorted(
+            raw_skills.items(),
+            key=lambda x: x[1][1],
+            reverse=True
+        )
+
+        extracted = [
+            ExtractedSkillItem(
+                skill=name,
+                skill_id=sid,
+                confidence=round(conf, 4)
+            )
+            for sid, (name, conf) in sorted_skills
+        ]
+
+        elapsed_ms = round((time.time() - start) * 1000, 2)
+
+        logger.info(
+            f"CV skill extraction: {len(extracted)} skills found "
+            f"in {elapsed_ms}ms"
+        )
+
+        return CvSkillExtractionResponse(
+            skills=extracted,
+            skill_names=[s.skill for s in extracted],
+            total_skills=len(extracted),
+            extraction_time_ms=elapsed_ms
+        )
+
+    except Exception as e:
+        logger.error(f"CV skill extraction error: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"CV skill extraction failed: {str(e)}"
+        )
+
