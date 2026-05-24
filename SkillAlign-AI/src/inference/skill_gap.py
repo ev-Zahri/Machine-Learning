@@ -18,6 +18,7 @@ Dependency:
 
 import logging
 import time
+import traceback
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Set, Tuple
 
@@ -182,10 +183,15 @@ class SkillGapAnalyzer:
 
         try:
             annotations = self.extractor.annotate(text)
+            
+            # Validasi struktur hasil
+            if not isinstance(annotations, dict) or "results" not in annotations:
+                raise ValueError("SkillNer returned invalid annotation structure.")
+
             skills: Dict[str, Tuple[str, float]] = {}
 
             # Full matches — exact match terhadap EMSI skill names
-            for match in annotations["results"]["full_matches"]:
+            for match in annotations["results"].get("full_matches", []):
                 sid   = match["skill_id"]
                 name  = match["doc_node_value"].lower().strip()
                 # Full match = confidence 1.0
@@ -193,7 +199,7 @@ class SkillGapAnalyzer:
                     skills[sid] = (name, 1.0)
 
             # Ngram scored — partial/fuzzy matches
-            for match in annotations["results"]["ngram_scored"]:
+            for match in annotations["results"].get("ngram_scored", []):
                 confidence = match.get("score", 0.0)
                 if confidence < self.ngram_threshold:
                     continue
@@ -205,8 +211,15 @@ class SkillGapAnalyzer:
             return skills
 
         except Exception as e:
-            logger.error(f"SkillNer extraction error: {e}")
-            return {}
+            # exc_info=True → log full stack trace agar root cause terlihat di log backend
+            logger.error(
+                f"SkillNer extraction error ({type(e).__name__}): {e}",
+                exc_info=True,
+            )
+            # Re-raise ke caller (endpoint /extract-cv-skills)
+            # sehingga FastAPI return HTTP 500 dengan detail error yang jelas,
+            # bukan diam-diam return array kosong []
+            raise
 
     # ------------------------------------------------------------------
     # Rekomendasi
